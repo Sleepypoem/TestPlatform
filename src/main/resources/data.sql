@@ -15,41 +15,56 @@ INSERT INTO `test-platform`.`roles` (
  );
 
 -- -------------------------------------------------------
+-- IMAGES
+-- -------------------------------------------------------
+INSERT INTO `test-platform`.`images` (
+`id`, `name`, `format`, `size`, `width`, `height`, `path`, `created_at`, `updated_at`)
+ VALUES (
+ 1, 'image-1', 'jpg', 250, 500, 500, 'image-1.jpg', NOW(), NOW()
+ );
+
+ INSERT INTO `test-platform`.`images` (
+`id`, `name`, `format`, `size`, `width`, `height`, `path`, `created_at`, `updated_at`)
+ VALUES (
+ 2, 'image-2', 'jpg', 250, 500, 500, 'image-2.jpg', NOW(), NOW()
+ );
+
+-- -------------------------------------------------------
 -- TEACHERS
 -- -------------------------------------------------------
 INSERT INTO `test-platform`.`teachers` (
-`id`, `first_name`,`last_name`, `teacher_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `teacher_code`, `created_at`, `updated_at`)
  VALUES (
- 1, 'John ', 'Doe', 77885522, '2023-11-05 14:55:41', NOW()
+ 1, 'Gojo', 'Satoru', 1, 77885522, '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`teachers` (
-`id`, `first_name`,`last_name`, `teacher_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `teacher_code`, `created_at`, `updated_at`)
  VALUES (
- 2, 'Jane ', 'Doe', 77446622, '2023-11-05 14:55:41', NOW()
+ 2, 'Kakashi', 'Hatake', 2, 77446622, '2023-11-05 14:55:41', NOW()
  );
 
 -- -------------------------------------------------------
 -- STUDENTS
 -- -------------------------------------------------------
 INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
  VALUES (
- 1, 'Monika', 'White', 01254789, '2023-11-05 14:55:41', NOW()
+ 1, 'Monika', 'White', 1, 01254789, '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
  VALUES (
- 2, 'Sayori', 'Daiba', 02547789, '2023-11-05 14:55:41', NOW()
+ 2, 'Sayori', 'Daiba', 2, 02547789, '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
  VALUES (
- 3, 'Yuri', 'Hoshino', 03547789, '2023-11-05 14:55:41', NOW()
+ 3, 'Yuri', 'Hoshino', 1, 03547789, '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
  VALUES (
- 4, 'Natsuki', 'Amai', 04547789, '2023-11-05 14:55:41', NOW()
+ 4, 'Natsuki', 'Amai', 2, 04547789, '2023-11-05 14:55:41', NOW()
  );
 
  -- -------------------------------------------------------
@@ -73,11 +88,11 @@ INSERT INTO `test-platform`.`students` (
  INSERT INTO `test-platform`.`tests` (
 `id`, `name`, `teacher_id`, `subject_id` , `content`, `created_at`, `updated_at`)
  VALUES (
- 1, 1, 'Math test', 2, '{
+ 1, 'Math test',1, 2, '{
                          "questions": [
                              {
                                  "description": "what is the result of 6 + 6",
-                                 "type": "multi-choice",
+                                 "type": "MULTIPLE",
                                  "options": [
                                      "4",
                                      "8",
@@ -88,7 +103,7 @@ INSERT INTO `test-platform`.`students` (
                              },
                              {
                                  "description": "what is the result of 3 x 3",
-                                 "type": "multi-choice",
+                                 "type": "MULTIPLE",
                                  "options": [
                                      "15",
                                      "8",
@@ -103,11 +118,11 @@ INSERT INTO `test-platform`.`students` (
  INSERT INTO `test-platform`.`tests` (
 `id`, `name`, `teacher_id`, `subject_id` , `content`, `created_at`, `updated_at`)
  VALUES (
- 2, 2, 'English test', 1, '{
+ 2, 'English test', 2, 1, '{
                          "questions": [
                              {
                               "description": "what is the capital of France?",
-                               "type": "multi-choice",
+                               "type": "MULTIPLE",
                                 "options": [
                                 "Paris",
                                  "London",
@@ -116,13 +131,13 @@ INSERT INTO `test-platform`.`students` (
                                    ],
                                     "answer": "1"
                               },
-                             { "description": "what is the capital of Germany?", "type": "multi-choice", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "2" },
-                             { "description": "what is the capital of Italy?", "type": "multi-choice", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "3" },]
+                             { "description": "what is the capital of Germany?", "type": "MULTIPLE", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "2" },
+                             { "description": "what is the capital of Italy?", "type": "MULTIPLE", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "3" },]
                              }', '2023-11-05 14:55:41', NOW()
  );
 
  -- -------------------------------------------------------
- STUDENT TESTS
+ -- STUDENT TESTS
  -- -------------------------------------------------------
  INSERT INTO `test-platform`.`student_tests` (
 `id`, `student_id`, `test_id`, `answers`, `score`, `status`, `created_at`, `updated_at`)
@@ -136,15 +151,15 @@ INSERT INTO `test-platform`.`students` (
  );
 
  -- --------------------------------------------------------
- -- TEACHERS ROLES
+ -- TEACHER ROLES
  -- --------------------------------------------------------
- INSERT INTO `test-platform`.`teacher_roles` (
-`teacher_id`, `role_id`, `created_at`, `updated_at`)
+ INSERT INTO `test-platform`.`roles_teachers` (
+`teacher_id`, `role_id`)
  VALUES (
- 1, 1, NOW(), NOW()
+ 1, 1
  );
- INSERT INTO `test-platform`.`teacher_roles` (
-`teacher_id`, `role_id`, `created_at`, `updated_at`)
+ INSERT INTO `test-platform`.`roles_teachers` (
+`teacher_id`, `role_id`)
  VALUES (
- 2, 1, NOW(), NOW()
+ 2, 1
  );
