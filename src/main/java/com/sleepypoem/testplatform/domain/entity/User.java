@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @MappedSuperclass
-public class User extends EntityWithTimestamps{
+public class User extends EntityWithTimestamps {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
