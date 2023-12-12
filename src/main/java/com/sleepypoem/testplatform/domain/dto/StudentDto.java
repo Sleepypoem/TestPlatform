@@ -13,5 +13,7 @@ public class StudentDto extends DtoWithTimestamps implements BaseDto<Long> {
 
     private Long studentCode;
 
+    private Integer gradeLevel;
+
     private ImageDto image;
 }

@@ -47,24 +47,24 @@ INSERT INTO `test-platform`.`teachers` (
 -- STUDENTS
 -- -------------------------------------------------------
 INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `grade_level`, `created_at`, `updated_at`)
  VALUES (
- 1, 'Monika', 'White', 1, 01254789, '2023-11-05 14:55:41', NOW()
+ 1, 'Monika', 'White', 1, 01254789, 9,  '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `grade_level`, `created_at`, `updated_at`)
  VALUES (
- 2, 'Sayori', 'Daiba', 2, 02547789, '2023-11-05 14:55:41', NOW()
+ 2, 'Sayori', 'Daiba', 2, 02547789, 9,  '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `grade_level`, `created_at`, `updated_at`)
  VALUES (
- 3, 'Yuri', 'Hoshino', 1, 03547789, '2023-11-05 14:55:41', NOW()
+ 3, 'Yuri', 'Hoshino', 1, 03547789, 9,  '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`students` (
-`id`, `first_name`,`last_name`, `image_id`, `student_code`, `created_at`, `updated_at`)
+`id`, `first_name`,`last_name`, `image_id`, `student_code`, `grade_level`, `created_at`, `updated_at`)
  VALUES (
- 4, 'Natsuki', 'Amai', 2, 04547789, '2023-11-05 14:55:41', NOW()
+ 4, 'Natsuki', 'Amai', 2, 04547789, 9,  '2023-11-05 14:55:41', NOW()
  );
 
  -- -------------------------------------------------------
@@ -88,7 +88,7 @@ INSERT INTO `test-platform`.`students` (
  INSERT INTO `test-platform`.`tests` (
 `id`, `name`, `teacher_id`, `subject_id` , `content`, `created_at`, `updated_at`)
  VALUES (
- 1, 'Math test',1, 2, '{
+ 1, 'Math test',1, 1, '{
                          "questions": [
                              {
                                  "description": "what is the result of 6 + 6",
@@ -118,7 +118,7 @@ INSERT INTO `test-platform`.`students` (
  INSERT INTO `test-platform`.`tests` (
 `id`, `name`, `teacher_id`, `subject_id` , `content`, `created_at`, `updated_at`)
  VALUES (
- 2, 'English test', 2, 1, '{
+ 2, 'English test', 2, 2, '{
                          "questions": [
                              {
                               "description": "what is the capital of France?",
