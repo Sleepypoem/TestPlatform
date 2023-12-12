@@ -1,13 +1,13 @@
 package com.sleepypoem.testplatform.service;
 
-import com.sleepypoem.testplatform.domain.entity.Teacher;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.stereotype.Service;
+import com.sleepypoem.testplatform.domain.entity.Test;
 
 @Service
-public class TeacherService extends AbstractQueryableService<Long, Teacher> {
-    public TeacherService(JpaRepository<Teacher, Long> repository, JpaSpecificationExecutor<Teacher> specificationExecutor) {
+public class TestService extends AbstractQueryableService<Long, Test>{
+    public TestService(JpaRepository<Test, Long> repository, JpaSpecificationExecutor<Test> specificationExecutor) {
         super(repository, specificationExecutor);
     }
 }

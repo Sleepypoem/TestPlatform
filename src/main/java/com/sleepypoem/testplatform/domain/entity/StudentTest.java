@@ -1,6 +1,9 @@
 package com.sleepypoem.testplatform.domain.entity;
 
+import com.sleepypoem.testplatform.config.MapperProvider;
+import com.sleepypoem.testplatform.domain.dto.StudentTestDto;
 import com.sleepypoem.testplatform.domain.entity.base.BaseEntity;
+import com.sleepypoem.testplatform.domain.entity.base.EntityWithDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,8 +11,8 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "student_test")
-public class StudentTest extends EntityWithTimestamps implements BaseEntity<Long> {
+@Table(name = "student_tests")
+public class StudentTest extends EntityWithTimestamps implements BaseEntity<Long>, EntityWithDto<StudentTestDto> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,4 +31,9 @@ public class StudentTest extends EntityWithTimestamps implements BaseEntity<Long
     private Integer score;
 
     private Integer status;
+
+    @Override
+    public StudentTestDto toDto() {
+        return MapperProvider.getMapper().map(this, StudentTestDto.class);
+    }
 }
