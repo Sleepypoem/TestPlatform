@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/student")
+@RequestMapping("/students")
 public class StudentController extends AbstractQueryableController<Student, Long>{
     public StudentController(AbstractQueryableService<Long, Student> service) {
         super(service);
