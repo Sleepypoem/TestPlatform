@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `test-platform`.`tests` (
    ENGINE = InnoDB ROW_FORMAT = COMPRESSED;
 
 -- -----------------------------------------------------
--- Table `test-platform`.`student_test`
+-- Table `test-platform`.`student_tests`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `test-platform`.`student_tests` (
   `id`BIGINT NOT NULL AUTO_INCREMENT,
