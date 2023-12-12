@@ -11,7 +11,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name = "test")
+@Table(name = "tests")
 public class Test extends EntityWithTimestamps implements BaseEntity<Long>, EntityWithDto<TestDto> {
 
     @Id
