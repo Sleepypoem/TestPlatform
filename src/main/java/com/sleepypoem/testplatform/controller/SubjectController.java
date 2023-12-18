@@ -27,7 +27,7 @@ public class SubjectController extends AbstractQueryableController<Subject, Long
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SubjectDto> get(@PathVariable Long id) {
+    public ResponseEntity<SubjectDto> one(@PathVariable Long id) {
         return ResponseEntity.ok(getByIdInternal(id).toDto());
     }
 

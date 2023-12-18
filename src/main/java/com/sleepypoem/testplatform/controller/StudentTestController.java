@@ -26,7 +26,7 @@ public class StudentTestController extends AbstractQueryableController<StudentTe
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentTestDto> getById(@PathVariable Long id) {
+    public ResponseEntity<StudentTestDto> one(@PathVariable Long id) {
         return ResponseEntity.ok(getByIdInternal(id).toDto());
     }
 
