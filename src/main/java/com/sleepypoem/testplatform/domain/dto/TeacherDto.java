@@ -18,5 +18,5 @@ public class TeacherDto extends DtoWithTimestamps implements BaseDto<Long> {
 
     private String roles;
 
-    private Image image;
+    private ImageDto image;
 }

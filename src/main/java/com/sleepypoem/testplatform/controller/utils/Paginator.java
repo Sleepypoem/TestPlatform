@@ -89,8 +89,9 @@ public class Paginator<D extends BaseDto<?>> {
 
     public PaginatedDto<D> getPaginatedDtoFromList(Integer currentPage, Integer size, Long totalElements, List<D> content) {
         PaginatedDto<D> paginatedDto = new PaginatedDto<>();
-        String nextPage = Objects.equals(Long.valueOf(currentPage), totalElements) ? null : API_PATH + resourceName + "&" + PAGE + (currentPage + 1) + "&" + SIZE + size;
-        String previousPage = currentPage == 0 ? null : API_PATH + resourceName + "&" + PAGE + (currentPage - 1) + "&" + SIZE + size;
+        int totalPages = (int) Math.ceil((double) totalElements / size);
+        String nextPage = currentPage == (totalPages - 1) ? null : API_PATH + resourceName + PAGE + (currentPage + 1) + "&" + SIZE + size;
+        String previousPage = currentPage == 0 ? null : API_PATH + resourceName  + PAGE + (currentPage - 1) + "&" + SIZE + size;
         paginatedDto.setContent(content);
         paginatedDto.setTotal(totalElements);
         paginatedDto.setCurrent(currentPage);

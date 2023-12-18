@@ -4,7 +4,7 @@ import com.sleepypoem.testplatform.controller.utils.Paginator;
 import com.sleepypoem.testplatform.domain.dto.PaginatedDto;
 import com.sleepypoem.testplatform.domain.dto.TeacherDto;
 import com.sleepypoem.testplatform.domain.entity.Teacher;
-import com.sleepypoem.testplatform.service.TeacherService;
+import com.sleepypoem.testplatform.service.AbstractQueryableService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/teachers")
 public class TeacherController extends AbstractQueryableController<Teacher, Long> {
 
-    public TeacherController(TeacherService teacherService) {
-        super(teacherService);
+    public TeacherController(AbstractQueryableService<Long, Teacher> service) {
+        super(service);
     }
 
     @GetMapping
@@ -54,7 +54,7 @@ public class TeacherController extends AbstractQueryableController<Teacher, Long
     }
 
     @GetMapping(params = {"query"})
-    public ResponseEntity<PaginatedDto<TeacherDto>> query(@RequestParam String query, @PageableDefault Pageable pageable) {
+    public ResponseEntity<PaginatedDto<TeacherDto>> search(@RequestParam String query, @PageableDefault Pageable pageable) {
         Page<Teacher> queryResult = queryInternal(query, pageable);
         Paginator<TeacherDto> paginator = new Paginator<>("teachers" + "?query=" + query);
         return ResponseEntity.ok(paginator.getPaginatedDtoFromPage(queryResult));

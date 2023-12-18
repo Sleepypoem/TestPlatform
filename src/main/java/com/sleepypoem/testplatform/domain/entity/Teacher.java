@@ -37,8 +37,8 @@ public class Teacher extends User implements BaseEntity<Long>, EntityWithDto<Tea
 
     @Override
     public TeacherDto toDto() {
-        TeacherDto teacherDto = MapperProvider.getMapper().map(this, TeacherDto.class);
-        teacherDto.setRoles(TEACHER_ROLES_PREFIX + id);
-        return teacherDto;
+        return MapperProvider.getMapper().map(this, TeacherDto.class);
     }
+
+
 }

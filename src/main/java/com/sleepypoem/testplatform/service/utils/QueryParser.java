@@ -10,7 +10,6 @@ import java.util.Optional;
 public class QueryParser {
 
     private QueryParser() {
-        throw new IllegalStateException(this.getClass().getName() + "is a utility class!");
     }
 
     public static List<StatementDto> parse(String query) {
