@@ -12,4 +12,6 @@ public interface ReadOnlyService<ID, E extends BaseEntity<ID>> {
     Page<E> getAll(Pageable pageable);
 
     Long count();
+
+    boolean existsById(ID id);
 }
