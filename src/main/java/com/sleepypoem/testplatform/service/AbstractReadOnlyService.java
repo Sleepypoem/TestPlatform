@@ -29,4 +29,9 @@ public class AbstractReadOnlyService<ID, E extends BaseEntity<ID>> implements Re
     public Long count() {
         return repository.count();
     }
+
+    @Override
+    public boolean existsById(ID id) {
+        return repository.existsById(id);
+    }
 }
