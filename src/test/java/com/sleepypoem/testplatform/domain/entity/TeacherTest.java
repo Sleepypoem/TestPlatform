@@ -27,7 +27,6 @@ class TeacherTest {
         //act
         TeacherDto teacherDto = teacher.toDto();
         //assert
-        System.out.println(teacherDto.toString());
         assertAll(
                 () -> assertEquals(teacher.getId(), teacherDto.getId()),
                 () -> assertEquals(teacher.getFirstName(), teacherDto.getFirstName()),

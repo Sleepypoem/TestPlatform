@@ -1,6 +1,9 @@
 package com.sleepypoem.testplatform.service;
 
+import com.sleepypoem.testplatform.domain.dto.Question;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.service.validation.DefaultValidator;
+import com.sleepypoem.testplatform.service.validation.TestValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.TestFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,13 +38,17 @@ class TestServiceTest {
     @Mock
     private JpaSpecificationExecutor<com.sleepypoem.testplatform.domain.entity.Test> specificationExecutor;
 
+    @Mock
+    private TestValidator testValidator;
+
     private TestService service;
 
     private SimpleFactory<com.sleepypoem.testplatform.domain.entity.Test> factory;
 
     @BeforeEach
     void setUp() {
-        service = new TestService(repository, specificationExecutor);
+        service = new TestService(repository, specificationExecutor, testValidator);
+        service.setValidator(new DefaultValidator<>());
         factory = new TestFactory();
     }
 
