@@ -15,8 +15,8 @@ public class ImageFactory implements SimpleFactory<Image> {
         image.setPath(RandomGenerator.getRandomString(10));
         image.setFormat(RandomGenerator.getRandomString(3));
         image.setSize(RandomGenerator.getRandomInt(1, 999));
-        image.setWidth(RandomGenerator.getRandomInt(1, 999));
-        image.setHeight(RandomGenerator.getRandomInt(1, 999));
+        image.setWidth(RandomGenerator.getRandomInt(251, 999));
+        image.setHeight(RandomGenerator.getRandomInt(251, 999));
         image.setCreatedAt(LocalDateTime.now());
         image.setUpdatedAt(LocalDateTime.now());
         return image;
