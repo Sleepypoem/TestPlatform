@@ -3,6 +3,7 @@ package com.sleepypoem.testplatform.service.validation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sleepypoem.testplatform.domain.dto.Question;
 import com.sleepypoem.testplatform.domain.utils.QuestionParser;
+import com.sleepypoem.testplatform.enums.TestStatus;
 import com.sleepypoem.testplatform.service.SubjectService;
 import com.sleepypoem.testplatform.service.TeacherService;
 import com.sleepypoem.testplatform.testutils.factories.impl.TestFactory;
@@ -130,5 +131,15 @@ class TestValidatorTest {
         Map<String, String> errors = testValidator.isValid(test);
         assertTrue(errors.containsKey("content -> question 0"));
         assertEquals("Question 0 {error=error}", errors.get("content -> question 0"));
+    }
+
+    @Test
+    @DisplayName("Test error is present if test status is SUBMITTED")
+    void testErrorIsPresentWhenStatusIsSubmitted (){
+        com.sleepypoem.testplatform.domain.entity.Test test = testFactory.create();
+        test.setStatus(TestStatus.SUBMITTED);
+        Map<String, String> errors = testValidator.isValid(test);
+        assertTrue(errors.containsKey("status"));
+        assertEquals("status is already submitted, it can't be modified", errors.get("status"));
     }
 }

@@ -5,6 +5,7 @@ import com.sleepypoem.testplatform.domain.entity.Subject;
 import com.sleepypoem.testplatform.domain.entity.Teacher;
 import com.sleepypoem.testplatform.domain.entity.Test;
 import com.sleepypoem.testplatform.domain.utils.QuestionParser;
+import com.sleepypoem.testplatform.enums.TestStatus;
 import com.sleepypoem.testplatform.service.SubjectService;
 import com.sleepypoem.testplatform.service.TeacherService;
 
@@ -32,6 +33,11 @@ public class TestValidator implements IValidator<Test> {
         Map<String, String> errors = new HashMap<>();
         Teacher teacher = element.getTeacher();
         Subject subject = element.getSubject();
+
+        if(element.getId() != null && element.getStatus() == TestStatus.SUBMITTED) {
+            errors.put("status", "status is already submitted, it can't be modified");
+            return errors;
+        }
 
         if (teacher == null || !teacherService.existsById(teacher.getId())) {
             errors.put("teacher", "teacher is null or does not exist");

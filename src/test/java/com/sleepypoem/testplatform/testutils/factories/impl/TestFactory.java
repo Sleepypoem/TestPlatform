@@ -40,7 +40,7 @@ public class TestFactory implements SimpleFactory<Test> {
         test.setContent(content);
         test.setSubject(new Subject());
         test.setTeacher(new Teacher());
-        test.setStatus(TestStatus.SUBMITTED);
+        test.setStatus(TestStatus.PENDING);
         test.setCreatedAt(LocalDateTime.now());
         test.setUpdatedAt(LocalDateTime.now());
         return test;
