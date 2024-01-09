@@ -4,6 +4,7 @@ import com.sleepypoem.testplatform.config.MapperProvider;
 import com.sleepypoem.testplatform.domain.dto.TestDto;
 import com.sleepypoem.testplatform.domain.entity.base.BaseEntity;
 import com.sleepypoem.testplatform.domain.entity.base.EntityWithDto;
+import com.sleepypoem.testplatform.enums.TestStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,9 @@ public class Test extends EntityWithTimestamps implements BaseEntity<Long>, Enti
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
+
+    @Enumerated(EnumType.STRING)
+    TestStatus status;
 
     @Override
     public TestDto toDto() {

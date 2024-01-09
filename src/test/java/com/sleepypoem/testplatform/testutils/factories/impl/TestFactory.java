@@ -4,6 +4,7 @@ import com.sleepypoem.testplatform.domain.dto.Question;
 import com.sleepypoem.testplatform.domain.entity.Subject;
 import com.sleepypoem.testplatform.domain.entity.Teacher;
 import com.sleepypoem.testplatform.domain.entity.Test;
+import com.sleepypoem.testplatform.enums.TestStatus;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.random.RandomGenerator;
 
@@ -39,6 +40,7 @@ public class TestFactory implements SimpleFactory<Test> {
         test.setContent(content);
         test.setSubject(new Subject());
         test.setTeacher(new Teacher());
+        test.setStatus(TestStatus.SUBMITTED);
         test.setCreatedAt(LocalDateTime.now());
         test.setUpdatedAt(LocalDateTime.now());
         return test;

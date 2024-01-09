@@ -89,6 +89,7 @@ CREATE TABLE IF NOT EXISTS `test-platform`.`tests` (
   `subject_id` BIGINT NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `content` LONGTEXT NULL,
+  `status` VARCHAR(45) NOT NULL,
   `created_at` DATETIME NOT NULL,
   `updated_at` DATETIME NOT NULL,
    PRIMARY KEY (`id`),

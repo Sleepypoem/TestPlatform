@@ -207,6 +207,7 @@ class TestServiceTest {
                 () -> assertEquals(actual.getContent(), expected.getContent()),
                 () -> assertNotNull(actual.getSubject()),
                 () -> assertNotNull(actual.getTeacher()),
+                () -> assertNotNull(actual.getStatus()),
                 () -> assertEquals(actual.getCreatedAt(), expected.getCreatedAt()),
                 () -> assertEquals(actual.getUpdatedAt(), expected.getUpdatedAt())
         );
