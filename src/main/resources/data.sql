@@ -88,12 +88,12 @@ INSERT INTO `test-platform`.`students` (
  INSERT INTO `test-platform`.`tests` (
 `id`, `name`, `teacher_id`, `subject_id` , `content`, `status`, `created_at`, `updated_at`)
  VALUES (
- 1, 'Math test',1, 1, 'SUBMITTED', '{"questions":[{"description": "what is the result of 6 + 6","type": "MULTIPLE","options":["4","8","12","22"],"answer": "3"},{"description": "what is the result of 3 x 3","type": "MULTIPLE","options":["15","8","12","9"],"answer": "4"}]}', '2023-11-05 14:55:41', NOW()
+ 1, 'Math test',1, 1, '{"questions":[{"description": "what is the result of 6 + 6","type": "MULTIPLE","options":["4","8","12","22"],"answer": "3"},{"description": "what is the result of 3 x 3","type": "MULTIPLE","options":["15","8","12","9"],"answer": "4"}]}','SUBMITTED', '2023-11-05 14:55:41', NOW()
  );
  INSERT INTO `test-platform`.`tests` (
 `id`, `name`, `teacher_id`, `subject_id` , `content`, `status`,  `created_at`, `updated_at`)
  VALUES (
- 2, 'English test', 2, 2,'SUBMITTED', '{"questions":[{"description": "what is the capital of France?","type": "MULTIPLE","options": ["Paris","London","Berlin","Madrid"],"answer": "1"},{ "description": "what is the capital of Germany?", "type": "MULTIPLE", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "2" },{ "description": "what is the capital of Italy?", "type": "MULTIPLE", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "3" },]}', '2023-11-05 14:55:41', NOW()
+ 2, 'English test', 2, 2, '{"questions":[{"description": "what is the capital of France?","type": "MULTIPLE","options": ["Paris","London","Berlin","Madrid"],"answer": "1"},{ "description": "what is the capital of Germany?", "type": "MULTIPLE", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "2" },{ "description": "what is the capital of Italy?", "type": "MULTIPLE", "options": ["Paris", "London", "Berlin", "Madrid"], "answer": "3" },]}','SUBMITTED', '2023-11-05 14:55:41', NOW()
  );
 
  -- -------------------------------------------------------
