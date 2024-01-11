@@ -27,7 +27,6 @@ class ImageValidatorTest {
     void testValidImage() {
         Image image = factory.create();
         Map<String, String> errors = imageValidator.isValid(image);
-        System.out.println(errors);
         assertTrue(errors.isEmpty());
     }
 
