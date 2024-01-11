@@ -8,9 +8,11 @@ import com.sleepypoem.testplatform.domain.utils.QuestionParser;
 import com.sleepypoem.testplatform.enums.TestStatus;
 import com.sleepypoem.testplatform.service.SubjectService;
 import com.sleepypoem.testplatform.service.TeacherService;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Component
 public class TestValidator implements IValidator<Test> {
 
     private final TeacherService teacherService;
