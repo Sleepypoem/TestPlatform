@@ -13,10 +13,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
+import java.util.Objects;
 
 public class AbstractQueryableService<ID, E extends BaseEntity<ID>> extends AbstractService<ID, E> implements QueryService<ID, E> {
 
-    private final JpaSpecificationExecutor<E> specificationExecutor;
+    protected final JpaSpecificationExecutor<E> specificationExecutor;
 
     public AbstractQueryableService(JpaRepository<E, ID> repository, JpaSpecificationExecutor<E> specificationExecutor) {
         super(repository);
@@ -61,6 +62,6 @@ public class AbstractQueryableService<ID, E extends BaseEntity<ID>> extends Abst
                 specificationResult = specificationResult.or(new CustomSpecification<>(statementDto.getQuery()));
             }
         }
-        return specificationResult;
+        return Objects.requireNonNullElseGet(specificationResult, () -> Specification.where(null));
     }
 }
