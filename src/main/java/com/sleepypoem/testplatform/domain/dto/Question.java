@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Data
 public class Question {
-
+    protected Integer id;
     protected QuestionType type;
     protected String description;
     protected String answer;
