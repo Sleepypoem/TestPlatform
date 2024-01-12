@@ -2,6 +2,7 @@ package com.sleepypoem.testplatform.service;
 
 import com.sleepypoem.testplatform.domain.entity.Image;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.service.validation.DefaultValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.ImageFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,8 @@ class ImageServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new ImageService(repository);
+        DefaultValidator<Image> validator = new DefaultValidator<>();
+        service = new ImageService(repository, validator);
         factory = new ImageFactory();
     }
 

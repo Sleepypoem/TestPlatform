@@ -38,16 +38,14 @@ class TestServiceTest {
     @Mock
     private JpaSpecificationExecutor<com.sleepypoem.testplatform.domain.entity.Test> specificationExecutor;
 
-    @Mock
-    private TestValidator testValidator;
-
     private TestService service;
 
     private SimpleFactory<com.sleepypoem.testplatform.domain.entity.Test> factory;
 
     @BeforeEach
     void setUp() {
-        service = new TestService(repository, specificationExecutor, testValidator);
+        DefaultValidator<com.sleepypoem.testplatform.domain.entity.Test> validator = new DefaultValidator<>();
+        service = new TestService(repository, specificationExecutor, validator);
         service.setValidator(new DefaultValidator<>());
         factory = new TestFactory();
     }
