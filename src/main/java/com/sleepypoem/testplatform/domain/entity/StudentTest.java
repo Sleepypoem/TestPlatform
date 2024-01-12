@@ -1,5 +1,6 @@
 package com.sleepypoem.testplatform.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sleepypoem.testplatform.config.MapperProvider;
 import com.sleepypoem.testplatform.domain.dto.StudentTestDto;
 import com.sleepypoem.testplatform.domain.entity.base.BaseEntity;
@@ -28,8 +29,10 @@ public class StudentTest extends EntityWithTimestamps implements BaseEntity<Long
     @JoinColumn(name = "test_id")
     private Test test;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer score;
 
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Integer status;
 
     @Override
