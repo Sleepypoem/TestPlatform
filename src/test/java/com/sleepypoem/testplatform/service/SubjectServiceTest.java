@@ -2,6 +2,7 @@ package com.sleepypoem.testplatform.service;
 
 import com.sleepypoem.testplatform.domain.entity.Subject;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.service.validation.DefaultValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.SubjectFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,8 @@ class SubjectServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new SubjectService(repository, specificationExecutor);
+        DefaultValidator<Subject> validator = new DefaultValidator<>();
+        service = new SubjectService(repository, specificationExecutor, validator);
         factory = new SubjectFactory();
     }
 
