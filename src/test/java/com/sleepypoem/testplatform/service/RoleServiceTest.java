@@ -2,6 +2,7 @@ package com.sleepypoem.testplatform.service;
 
 import com.sleepypoem.testplatform.domain.entity.Role;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.service.validation.DefaultValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.RoleFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -41,7 +42,8 @@ class RoleServiceTest {
 
     @BeforeEach
     void setUp() {
-        service = new RoleService(repository, specificationExecutor);
+        DefaultValidator<Role> validator = new DefaultValidator<>();
+        service = new RoleService(repository, specificationExecutor, validator);
         factory = new RoleFactory();
     }
 
