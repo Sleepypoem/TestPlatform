@@ -1,13 +1,10 @@
 package com.sleepypoem.testplatform.service;
 
-import com.sleepypoem.testplatform.domain.entity.Image;
-import com.sleepypoem.testplatform.domain.entity.Student;
 import com.sleepypoem.testplatform.domain.entity.StudentTest;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
 import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
 import com.sleepypoem.testplatform.service.validation.StudentTestValidator;
-import com.sleepypoem.testplatform.service.validation.StudentValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.StudentTestFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -31,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class StudentTestServiceTest {
