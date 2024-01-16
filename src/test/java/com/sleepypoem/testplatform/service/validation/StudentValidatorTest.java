@@ -94,6 +94,7 @@ class StudentValidatorTest {
     @DisplayName("Test error is present when student code already exists")
     void testStudentCodeAlreadyExists() {
         Student student = factory.create();
+        student.setId(null);
         student.setStudentCode(1L);
         when(studentService.existsByStudentCode(1L)).thenReturn(true).thenReturn(true);
         Map<String, String> errors = studentValidator.isValid(student);

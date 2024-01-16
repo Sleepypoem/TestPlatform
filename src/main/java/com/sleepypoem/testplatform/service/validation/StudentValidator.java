@@ -41,7 +41,7 @@ public class StudentValidator implements IValidator<Student>{
             errors.put("studentCode", "Student code is null or invalid");
         }
 
-        if(element.getStudentCode() != null && studentService.existsByStudentCode(element.getStudentCode())) {
+        if(element.getId() == null && element.getStudentCode() != null && Boolean.TRUE.equals(studentService.existsByStudentCode(element.getStudentCode()))) {
             errors.put("studentCode", "Student code already exists");
         }
         return errors;
