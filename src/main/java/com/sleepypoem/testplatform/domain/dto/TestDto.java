@@ -4,7 +4,7 @@ import com.sleepypoem.testplatform.enums.TestStatus;
 import lombok.Data;
 
 @Data
-public class TestDto extends DtoWithTimestamps implements BaseDto<Long>{
+public class TestDto extends DtoWithTimestamps implements BaseDto<Long> {
 
     private Long id;
 

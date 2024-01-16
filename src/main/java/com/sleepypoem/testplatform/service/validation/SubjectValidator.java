@@ -11,7 +11,7 @@ public class SubjectValidator implements IValidator<Subject> {
     @Override
     public Map<String, String> isValid(Subject element) {
         Map<String, String> errors = new HashMap<>();
-        if(element.getName() == null || element.getName().isEmpty()){
+        if (element.getName() == null || element.getName().isEmpty()) {
             errors.put("name", "name is null or empty");
         }
 

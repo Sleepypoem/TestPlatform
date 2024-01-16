@@ -1,12 +1,9 @@
 package com.sleepypoem.testplatform.service;
 
-import com.sleepypoem.testplatform.domain.entity.Image;
-import com.sleepypoem.testplatform.domain.entity.Role;
 import com.sleepypoem.testplatform.domain.entity.Student;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
 import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
-import com.sleepypoem.testplatform.service.validation.RoleValidator;
 import com.sleepypoem.testplatform.service.validation.StudentValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.StudentFactory;
@@ -28,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
@@ -294,7 +290,7 @@ class StudentServiceTest {
                 () -> assertEquals(actual.getId(), expected.getId()),
                 () -> assertEquals(actual.getFirstName(), expected.getFirstName()),
                 () -> assertEquals(actual.getLastName(), expected.getLastName()),
-                () -> assertEquals(actual.getGradeLevel(),  expected.getGradeLevel()),
+                () -> assertEquals(actual.getGradeLevel(), expected.getGradeLevel()),
                 () -> assertEquals(actual.getStudentCode(), expected.getStudentCode()),
                 () -> assertNotNull(expected.getImage()),
                 () -> assertEquals(actual.getCreatedAt(), expected.getCreatedAt()),

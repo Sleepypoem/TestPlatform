@@ -1,11 +1,12 @@
 package com.sleepypoem.testplatform.domain.entity;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import com.sleepypoem.testplatform.domain.dto.SubjectDto;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
+
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SubjectTest {
 

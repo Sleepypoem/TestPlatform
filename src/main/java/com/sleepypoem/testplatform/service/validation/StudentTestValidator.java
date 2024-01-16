@@ -22,22 +22,23 @@ public class StudentTestValidator implements IValidator<StudentTest> {
         this.studentService = studentService;
         this.testService = testService;
     }
+
     @Override
     public Map<String, String> isValid(StudentTest element) {
         Map<String, String> errors = new HashMap<>();
         Student student = element.getStudent();
         Test test = element.getTest();
 
-        if(element.getAnswers() == null) {
+        if (element.getAnswers() == null) {
             errors.put("answers", "answers is null");
         }
 
-        if(student == null || !studentService.existsById(student.getId())) {
+        if (student == null || !studentService.existsById(student.getId())) {
             errors.put("student", "student is null or does not exist");
             return errors;
         }
 
-        if(test == null || !testService.existsById(test.getId())) {
+        if (test == null || !testService.existsById(test.getId())) {
             errors.put("test", "test is null or does not exist");
         }
         return errors;

@@ -10,7 +10,9 @@ import com.sleepypoem.testplatform.service.SubjectService;
 import com.sleepypoem.testplatform.service.TeacherService;
 import org.springframework.stereotype.Component;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class TestValidator implements IValidator<Test> {
@@ -36,7 +38,7 @@ public class TestValidator implements IValidator<Test> {
         Teacher teacher = element.getTeacher();
         Subject subject = element.getSubject();
 
-        if(element.getId() != null && element.getStatus() == TestStatus.SUBMITTED) {
+        if (element.getId() != null && element.getStatus() == TestStatus.SUBMITTED) {
             errors.put("status", "status is already submitted, it can't be modified");
             return errors;
         }
@@ -45,7 +47,7 @@ public class TestValidator implements IValidator<Test> {
             errors.put("teacher", "teacher is null or does not exist");
         }
 
-        if(subject == null || !subjectService.existsById(subject.getId())) {
+        if (subject == null || !subjectService.existsById(subject.getId())) {
             errors.put("subject", "subject is null or does not exist");
         }
 
@@ -66,7 +68,7 @@ public class TestValidator implements IValidator<Test> {
     private void validateQuestions(Test test, Map<String, String> errors) {
         List<? super Question> questions = questionParser.parse(test.getContent());
 
-        if(questions.isEmpty()) {
+        if (questions.isEmpty()) {
             errors.put("content -> questions", "question list is empty");
         }
 

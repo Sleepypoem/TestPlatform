@@ -15,24 +15,19 @@ import lombok.Setter;
 @Table(name = "tests")
 public class Test extends EntityWithTimestamps implements BaseEntity<Long>, EntityWithDto<TestDto> {
 
+    @Enumerated(EnumType.STRING)
+    TestStatus status;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String content;
-
     @ManyToOne
     @JoinColumn(name = "subject_id")
     private Subject subject;
-
     @ManyToOne
     @JoinColumn(name = "teacher_id")
     private Teacher teacher;
-
-    @Enumerated(EnumType.STRING)
-    TestStatus status;
 
     @Override
     public TestDto toDto() {

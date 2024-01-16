@@ -1,6 +1,5 @@
 package com.sleepypoem.testplatform.service;
 
-import com.sleepypoem.testplatform.domain.entity.Image;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
 import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;

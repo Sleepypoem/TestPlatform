@@ -1,7 +1,7 @@
 package com.sleepypoem.testplatform.controller;
 
-import com.sleepypoem.testplatform.domain.dto.RoleDto;
 import com.sleepypoem.testplatform.domain.dto.PaginatedDto;
+import com.sleepypoem.testplatform.domain.dto.RoleDto;
 import com.sleepypoem.testplatform.domain.entity.Role;
 import com.sleepypoem.testplatform.service.AbstractQueryableService;
 import com.sleepypoem.testplatform.testutils.factories.impl.RoleFactory;
@@ -21,7 +21,6 @@ import org.springframework.http.ResponseEntity;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 class RoleControllerTest {

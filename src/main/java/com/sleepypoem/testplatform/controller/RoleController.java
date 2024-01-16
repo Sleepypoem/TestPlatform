@@ -1,4 +1,5 @@
 package com.sleepypoem.testplatform.controller;
+
 import com.sleepypoem.testplatform.controller.utils.Paginator;
 import com.sleepypoem.testplatform.domain.dto.PaginatedDto;
 import com.sleepypoem.testplatform.domain.dto.RoleDto;
@@ -9,10 +10,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RestController;
+
 @RestController
 @RequestMapping("/roles")
-public class RoleController extends AbstractQueryableController<Role,  Long>{
+public class RoleController extends AbstractQueryableController<Role, Long> {
 
     public RoleController(AbstractQueryableService<Long, Role> service) {
         super(service);

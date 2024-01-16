@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 public class Paginator<D extends BaseDto<?>> {
 
@@ -91,7 +90,7 @@ public class Paginator<D extends BaseDto<?>> {
         PaginatedDto<D> paginatedDto = new PaginatedDto<>();
         int totalPages = (int) Math.ceil((double) totalElements / size);
         String nextPage = currentPage == (totalPages - 1) ? null : API_PATH + resourceName + PAGE + (currentPage + 1) + "&" + SIZE + size;
-        String previousPage = currentPage == 0 ? null : API_PATH + resourceName  + PAGE + (currentPage - 1) + "&" + SIZE + size;
+        String previousPage = currentPage == 0 ? null : API_PATH + resourceName + PAGE + (currentPage - 1) + "&" + SIZE + size;
         paginatedDto.setContent(content);
         paginatedDto.setTotal(totalElements);
         paginatedDto.setCurrent(currentPage);

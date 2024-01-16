@@ -3,7 +3,8 @@ package com.sleepypoem.testplatform.domain.entity;
 import com.sleepypoem.testplatform.domain.dto.ImageDto;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertAll;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ImageTest {
 

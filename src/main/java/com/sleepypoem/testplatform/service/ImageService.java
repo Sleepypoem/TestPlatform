@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 @Service
-public class ImageService extends AbstractService<Long, Image>{
+public class ImageService extends AbstractService<Long, Image> {
     public ImageService(JpaRepository<Image, Long> repository, IValidator<Image> validator) {
         super(repository);
         this.validator = validator;

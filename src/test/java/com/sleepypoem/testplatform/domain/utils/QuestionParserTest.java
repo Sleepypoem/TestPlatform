@@ -10,7 +10,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,7 +26,7 @@ class QuestionParserTest {
 
     @Test
     @DisplayName("Test parse a string into a list of questions")
-    void testIfParseIsDoneCorrectly(){
+    void testIfParseIsDoneCorrectly() {
         String string = "[" +
                 "{\"type\": \"OPEN\"," +
                 " \"answer\": \"answer\"," +
@@ -41,7 +40,7 @@ class QuestionParserTest {
                 " \"description\" : \"description\"," +
                 " \"images\" : [" +
                 "{\"id\": 1," +
-                "\"name\": \"name\","+
+                "\"name\": \"name\"," +
                 "\"format\":\"JPG\"," +
                 "\"path\":\"www.image.com\"," +
                 "\"size\": 200," +

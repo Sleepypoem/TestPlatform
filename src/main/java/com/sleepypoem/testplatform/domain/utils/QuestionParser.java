@@ -28,13 +28,20 @@ public class QuestionParser {
             for (int i = 0; i < jsonNode.size(); i++) {
                 String type = jsonNode.get(i).get("type").asText().toLowerCase();
                 switch (type) {
-                    case "multiple": questions.add(objectMapper.readValue(jsonNode.get(i).toString(), MultiChoiceQuestion.class)); break;
-                    case "open": questions.add(objectMapper.readValue(jsonNode.get(i).toString(), OpenChoiceQuestion.class)); break;
-                    case "image": questions.add(objectMapper.readValue(jsonNode.get(i).toString(), ImageQuestion.class)); break;
-                    default: throw new MyInternalException("Unknown type: " + type + " in question: " + jsonNode.get(i).toString() + " at index: " + i + " in content: " + content);
+                    case "multiple":
+                        questions.add(objectMapper.readValue(jsonNode.get(i).toString(), MultiChoiceQuestion.class));
+                        break;
+                    case "open":
+                        questions.add(objectMapper.readValue(jsonNode.get(i).toString(), OpenChoiceQuestion.class));
+                        break;
+                    case "image":
+                        questions.add(objectMapper.readValue(jsonNode.get(i).toString(), ImageQuestion.class));
+                        break;
+                    default:
+                        throw new MyInternalException("Unknown type: " + type + " in question: " + jsonNode.get(i).toString() + " at index: " + i + " in content: " + content);
                 }
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new MyInternalException(e.getMessage());
         }
         return questions;

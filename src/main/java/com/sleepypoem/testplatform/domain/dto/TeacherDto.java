@@ -1,6 +1,5 @@
 package com.sleepypoem.testplatform.domain.dto;
 
-import com.sleepypoem.testplatform.domain.entity.Image;
 import lombok.Getter;
 import lombok.Setter;
 

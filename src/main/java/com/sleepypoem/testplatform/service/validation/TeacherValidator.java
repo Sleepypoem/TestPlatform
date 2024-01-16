@@ -19,6 +19,7 @@ public class TeacherValidator implements IValidator<Teacher> {
     public void setTeacherService(TeacherService teacherService) {
         this.teacherService = teacherService;
     }
+
     @Override
     public Map<String, String> isValid(Teacher element) {
         Map<String, String> errors = new HashMap<>();
@@ -31,7 +32,7 @@ public class TeacherValidator implements IValidator<Teacher> {
         if (element.getTeacherCode() == null || element.getTeacherCode() <= 0) {
             errors.put("teacherCode", "Teacher code is null or invalid");
         }
-        if(element.getId() == null && element.getTeacherCode() != null && Boolean.TRUE.equals(teacherService.existsByTeacherCode(element.getTeacherCode()))) {
+        if (element.getId() == null && element.getTeacherCode() != null && Boolean.TRUE.equals(teacherService.existsByTeacherCode(element.getTeacherCode()))) {
             errors.put("teacherCode", "Teacher code already exists");
         }
         return errors;

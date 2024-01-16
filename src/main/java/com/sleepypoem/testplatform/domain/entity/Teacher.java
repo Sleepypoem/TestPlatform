@@ -10,8 +10,6 @@ import lombok.Setter;
 
 import java.util.Set;
 
-import static com.sleepypoem.testplatform.constants.ResourceConstants.TEACHER_ROLES_PREFIX;
-
 @Entity
 @Getter
 @Setter

@@ -1,9 +1,10 @@
 package com.sleepypoem.testplatform.domain.entity;
 
 import com.sleepypoem.testplatform.domain.dto.StudentTestDto;
+import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
-import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class StudentTestUnitTest {
@@ -15,7 +16,7 @@ class StudentTestUnitTest {
         studentTest.setId(1L);
         studentTest.setStudent(new Student());
         studentTest.setAnswers("test");
-        studentTest.setTest(new  com.sleepypoem.testplatform.domain.entity.Test());
+        studentTest.setTest(new com.sleepypoem.testplatform.domain.entity.Test());
         studentTest.setScore(1);
         studentTest.setStatus(1);
         studentTest.setCreatedAt(LocalDateTime.now());

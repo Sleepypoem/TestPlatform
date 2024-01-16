@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/student-tests")
-public class StudentTestController extends AbstractQueryableController<StudentTest, Long>{
+public class StudentTestController extends AbstractQueryableController<StudentTest, Long> {
     public StudentTestController(AbstractQueryableService<Long, StudentTest> service) {
         super(service);
     }

@@ -63,7 +63,7 @@ public class CustomSpecification<E> implements Specification<E> {
         try {
             Class<?> type = path.getJavaType();
 
-            if(type == LocalDateTime.class) {
+            if (type == LocalDateTime.class) {
                 return compareDate(path, queryValue, query.getQueryOperator(), builder);
             }
             return switch (query.getQueryOperator()) {
@@ -118,10 +118,11 @@ public class CustomSpecification<E> implements Specification<E> {
      * <p>This method parses the string value to a LocalDateTime and casts the
      * path expression to a LocalDateTime. It then returns a predicate built with
      * the CriteriaBuilder based on the operator.
-     * @param path the date expression path
-     * @param value the date value as a string
+     *
+     * @param path     the date expression path
+     * @param value    the date value as a string
      * @param operator the comparison operator
-     * @param builder the CriteriaBuilder object to create the predicate
+     * @param builder  the CriteriaBuilder object to create the predicate
      * @return a predicate for the date comparison
      */
     @SuppressWarnings("unchecked")

@@ -45,7 +45,7 @@ class ImageServiceTest {
     @Test
     @DisplayName("Test create an image when ok")
     void testCreateImageWhenOk() {
-       //arrange
+        //arrange
         Image expected = factory.create();
         when(repository.save(expected)).thenReturn(expected);
         //act
@@ -208,7 +208,7 @@ class ImageServiceTest {
         ImageValidator validatorMock = mock(ImageValidator.class);
         service.setValidator(validatorMock);
         when(validatorMock.isValid(any(Image.class))).thenReturn(Map.of("test", "test"));
-        var ex= assertThrows(MyValidationException.class, () -> service.create(image));
+        var ex = assertThrows(MyValidationException.class, () -> service.create(image));
         String expectedMessage = "The following errors were found during validation : {\n" +
                 "Field: test || Error: test\n" +
                 "}";
@@ -224,7 +224,7 @@ class ImageServiceTest {
         ImageValidator validatorMock = mock(ImageValidator.class);
         service.setValidator(validatorMock);
         when(validatorMock.isValid(any(Image.class))).thenReturn(Map.of("test", "test"));
-        var ex= assertThrows(MyValidationException.class, () -> service.update(id, image));
+        var ex = assertThrows(MyValidationException.class, () -> service.update(id, image));
         String expectedMessage = """
                 The following errors were found during validation : {
                 Field: test || Error: test

@@ -1,12 +1,9 @@
 package com.sleepypoem.testplatform.service;
 
-import com.sleepypoem.testplatform.domain.entity.Image;
-import com.sleepypoem.testplatform.domain.entity.Student;
 import com.sleepypoem.testplatform.domain.entity.Teacher;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
 import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
-import com.sleepypoem.testplatform.service.validation.StudentValidator;
 import com.sleepypoem.testplatform.service.validation.TeacherValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.TeacherFactory;

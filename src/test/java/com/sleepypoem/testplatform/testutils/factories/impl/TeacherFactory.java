@@ -17,7 +17,7 @@ public class TeacherFactory implements SimpleFactory<Teacher> {
         teacher.setId(RandomGenerator.getRandomLong(1, 999));
         teacher.setFirstName(RandomGenerator.getRandomString(10));
         teacher.setLastName(RandomGenerator.getRandomString(10));
-        teacher.setTeacherCode(RandomGenerator.getRandomLong(8,8));
+        teacher.setTeacherCode(RandomGenerator.getRandomLong(8, 8));
         teacher.setRoles(Set.of(new Role()));
         teacher.setImage(new Image());
         teacher.setCreatedAt(LocalDateTime.now());

@@ -20,9 +20,9 @@ public class TeacherConverter implements Converter<Teacher, TeacherDto> {
         d.setLastName(s.getLastName());
         d.setTeacherCode(s.getTeacherCode());
         d.setRoles(TEACHER_ROLES_PREFIX + s.getId());
-        if(s.getImage() == null) {
+        if (s.getImage() == null) {
             d.setImage(null);
-        }else{
+        } else {
             d.setImage(s.getImage().toDto());
         }
         d.setCreatedAt(s.getCreatedAt());

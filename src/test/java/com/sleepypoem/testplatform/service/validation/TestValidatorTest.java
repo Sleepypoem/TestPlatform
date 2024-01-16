@@ -16,7 +16,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -53,7 +54,7 @@ class TestValidatorTest {
     void testErrorIsPresentWhenTeacherIsNull() {
         com.sleepypoem.testplatform.domain.entity.Test test = testFactory.create();
         test.setTeacher(null);
-        Map<String,String> errors = testValidator.isValid(test);
+        Map<String, String> errors = testValidator.isValid(test);
         assertTrue(errors.containsKey("teacher"));
         assertEquals("teacher is null or does not exist", errors.get("teacher"));
     }
@@ -63,7 +64,7 @@ class TestValidatorTest {
     void testErrorIsPresentWhenTeacherDoesNotExist() {
         com.sleepypoem.testplatform.domain.entity.Test test = testFactory.create();
         when(teacherService.existsById(test.getTeacher().getId())).thenReturn(false);
-        Map<String,String> errors = testValidator.isValid(test);
+        Map<String, String> errors = testValidator.isValid(test);
         assertTrue(errors.containsKey("teacher"));
         assertEquals("teacher is null or does not exist", errors.get("teacher"));
     }
@@ -73,7 +74,7 @@ class TestValidatorTest {
     void testErrorIsPresentWhenSubjectIsNull() {
         com.sleepypoem.testplatform.domain.entity.Test test = testFactory.create();
         test.setSubject(null);
-        Map<String,String> errors = testValidator.isValid(test);
+        Map<String, String> errors = testValidator.isValid(test);
         assertTrue(errors.containsKey("subject"));
         assertEquals("subject is null or does not exist", errors.get("subject"));
     }
@@ -83,7 +84,7 @@ class TestValidatorTest {
     void testErrorIsPresentWhenSubjectDoesNotExist() {
         com.sleepypoem.testplatform.domain.entity.Test test = testFactory.create();
         when(subjectService.existsById(test.getSubject().getId())).thenReturn(false);
-        Map<String,String> errors = testValidator.isValid(test);
+        Map<String, String> errors = testValidator.isValid(test);
         assertTrue(errors.containsKey("subject"));
         assertEquals("subject is null or does not exist", errors.get("subject"));
     }
@@ -93,7 +94,7 @@ class TestValidatorTest {
     void testErrorIsPresentWhenContentIsNull() {
         com.sleepypoem.testplatform.domain.entity.Test test = testFactory.create();
         test.setContent(null);
-        Map<String,String> errors = testValidator.isValid(test);
+        Map<String, String> errors = testValidator.isValid(test);
         assertTrue(errors.containsKey("content"));
         assertEquals("content is null", errors.get("content"));
     }
@@ -135,7 +136,7 @@ class TestValidatorTest {
 
     @Test
     @DisplayName("Test error is present if test status is SUBMITTED")
-    void testErrorIsPresentWhenStatusIsSubmitted (){
+    void testErrorIsPresentWhenStatusIsSubmitted() {
         com.sleepypoem.testplatform.domain.entity.Test test = testFactory.create();
         test.setStatus(TestStatus.SUBMITTED);
         Map<String, String> errors = testValidator.isValid(test);

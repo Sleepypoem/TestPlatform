@@ -12,7 +12,7 @@ public class RoleFactory implements SimpleFactory<Role> {
     @Override
     public Role create() {
         Role role = new Role();
-        role.setId(RandomGenerator.getRandomLong(1,999));
+        role.setId(RandomGenerator.getRandomLong(1, 999));
         role.setName(RandomGenerator.getRandomString(10));
         role.setDescription(RandomGenerator.getRandomString(20));
         role.setTeachers(List.of(new Teacher()));

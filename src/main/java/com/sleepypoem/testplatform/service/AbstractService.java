@@ -17,6 +17,7 @@ import java.util.Objects;
 @Getter
 public class AbstractService<ID, E extends BaseEntity<ID>> extends AbstractReadOnlyService<ID, E> implements Service<ID, E> {
     protected IValidator<E> validator;
+
     public AbstractService(JpaRepository<E, ID> repository) {
         super(repository);
         validator = new DefaultValidator<>();

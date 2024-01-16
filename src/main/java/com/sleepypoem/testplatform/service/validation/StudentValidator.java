@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Component
-public class StudentValidator implements IValidator<Student>{
+public class StudentValidator implements IValidator<Student> {
 
     private StudentService studentService;
 
@@ -33,7 +33,7 @@ public class StudentValidator implements IValidator<Student>{
             errors.put("lastName", "Last name is null or empty");
         }
 
-        if(element.getGradeLevel() <= 0) {
+        if (element.getGradeLevel() <= 0) {
             errors.put("gradeLevel", "Grade level is less than or equal to 0");
         }
 
@@ -41,7 +41,7 @@ public class StudentValidator implements IValidator<Student>{
             errors.put("studentCode", "Student code is null or invalid");
         }
 
-        if(element.getId() == null && element.getStudentCode() != null && Boolean.TRUE.equals(studentService.existsByStudentCode(element.getStudentCode()))) {
+        if (element.getId() == null && element.getStudentCode() != null && Boolean.TRUE.equals(studentService.existsByStudentCode(element.getStudentCode()))) {
             errors.put("studentCode", "Student code already exists");
         }
         return errors;

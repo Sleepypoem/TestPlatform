@@ -9,16 +9,16 @@ import org.springframework.stereotype.Component;
 import java.util.Map;
 
 @Component
-public class QuestionValidator implements IValidator<Question>{
+public class QuestionValidator implements IValidator<Question> {
     @Override
     public Map<String, String> isValid(Question element) {
         Map<String, String> errors = new java.util.HashMap<>();
 
-        if(element.getAnswer() == null) {
+        if (element.getAnswer() == null) {
             errors.put("answer", "answer is null or empty");
         }
 
-        if(element.getDescription() == null) {
+        if (element.getDescription() == null) {
             errors.put("description", "description is null or empty");
         }
 
@@ -43,14 +43,14 @@ public class QuestionValidator implements IValidator<Question>{
 
     private void validateSingleChoiceQuestion(Question question, Map<String, String> errors) {
         OpenChoiceQuestion openChoiceQuestion = (OpenChoiceQuestion) question;
-        if(openChoiceQuestion.getResponses() == null || openChoiceQuestion.getResponses().length == 0) {
+        if (openChoiceQuestion.getResponses() == null || openChoiceQuestion.getResponses().length == 0) {
             errors.put("responses", "responses are null or empty");
         }
 
     }
 
     private void validateImageQuestion(Question question, Map<String, String> errors) {
-        ImageQuestion  imageQuestion = (ImageQuestion) question;
+        ImageQuestion imageQuestion = (ImageQuestion) question;
         if (imageQuestion.getImages() == null || imageQuestion.getImages().length == 0) {
             errors.put("images", "images are null or empty");
         }

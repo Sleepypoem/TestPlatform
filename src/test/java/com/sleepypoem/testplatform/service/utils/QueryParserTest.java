@@ -17,7 +17,7 @@ class QueryParserTest {
         QueryDto result = QueryParser.parseQuery(query);
         assertEquals("name", result.getQueryName());
         assertEquals("test", result.getQueryValue());
-        assertEquals( QueryOperator.EQ, result.getQueryOperator());
+        assertEquals(QueryOperator.EQ, result.getQueryOperator());
     }
 
     @Test
@@ -30,7 +30,7 @@ class QueryParserTest {
                 () -> assertEquals("name", result.get(0).getQuery().getQueryName()),
                 () -> assertEquals("test", result.get(0).getQuery().getQueryValue()),
                 () -> assertEquals(QueryOperator.EQ, result.get(0).getQuery().getQueryOperator()),
-                () -> assertEquals(StatementOperator.AND ,result.get(1).getOperator()),
+                () -> assertEquals(StatementOperator.AND, result.get(1).getOperator()),
                 () -> assertEquals("age", result.get(1).getQuery().getQueryName()),
                 () -> assertEquals("20", result.get(1).getQuery().getQueryValue()),
                 () -> assertEquals(QueryOperator.EQ, result.get(1).getQuery().getQueryOperator())
@@ -42,10 +42,9 @@ class QueryParserTest {
     @DisplayName("Test if we get an exception when the string to be parsed does not contain any operators.")
     void testExceptionWhenNoOperator() {
         String query = "nametest";
-        var ex =assertThrows(MyInternalException.class, () -> QueryParser.parseQuery(query));
+        var ex = assertThrows(MyInternalException.class, () -> QueryParser.parseQuery(query));
         assertEquals("Invalid query format, operator not found", ex.getMessage());
     }
-
 
 
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/students")
-public class StudentController extends AbstractQueryableController<Student, Long>{
+public class StudentController extends AbstractQueryableController<Student, Long> {
     public StudentController(AbstractQueryableService<Long, Student> service) {
         super(service);
     }
@@ -29,6 +29,7 @@ public class StudentController extends AbstractQueryableController<Student, Long
     public ResponseEntity<StudentDto> one(@PathVariable Long id) {
         return ResponseEntity.ok(getByIdInternal(id).toDto());
     }
+
     @GetMapping(params = {"query"})
     public ResponseEntity<PaginatedDto<StudentDto>> search(@RequestParam String query, @PageableDefault Pageable pageable) {
         Page<Student> students = queryInternal(query, pageable);

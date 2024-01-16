@@ -3,7 +3,7 @@ package com.sleepypoem.testplatform.domain.dto;
 import lombok.Data;
 
 @Data
-public class ImageDto extends DtoWithTimestamps implements BaseDto<Long>{
+public class ImageDto extends DtoWithTimestamps implements BaseDto<Long> {
 
     private Long id;
 

@@ -1,6 +1,5 @@
 package com.sleepypoem.testplatform.testutils.factories.impl;
 
-import com.sleepypoem.testplatform.domain.dto.Question;
 import com.sleepypoem.testplatform.domain.entity.Subject;
 import com.sleepypoem.testplatform.domain.entity.Teacher;
 import com.sleepypoem.testplatform.domain.entity.Test;
@@ -25,13 +24,14 @@ public class TestFactory implements SimpleFactory<Test> {
             " \"description\" : \"description\"," +
             " \"images\" : [" +
             "{\"id\": 1," +
-            "\"name\": \"name\","+
+            "\"name\": \"name\"," +
             "\"format\":\"JPG\"," +
             "\"path\":\"www.image.com\"," +
             "\"size\": 200," +
             "\"width\":400," +
             "\"height\":300" +
             "}]}]";
+
     @Override
     public Test create() {
         Test test = new Test();

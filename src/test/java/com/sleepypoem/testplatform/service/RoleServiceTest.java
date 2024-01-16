@@ -1,6 +1,5 @@
 package com.sleepypoem.testplatform.service;
 
-import com.sleepypoem.testplatform.domain.entity.Image;
 import com.sleepypoem.testplatform.domain.entity.Role;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
 import com.sleepypoem.testplatform.exception.MyValidationException;
@@ -256,7 +255,7 @@ class RoleServiceTest {
         verify(validatorMock).isValid(any(Role.class));
     }
 
-        void assertFields(Role actual, Role expected) {
+    void assertFields(Role actual, Role expected) {
         assertAll(
                 () -> assertNotNull(expected),
                 () -> assertEquals(actual.getId(), expected.getId()),
