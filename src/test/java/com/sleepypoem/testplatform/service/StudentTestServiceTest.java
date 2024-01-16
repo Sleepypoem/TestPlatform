@@ -1,8 +1,13 @@
 package com.sleepypoem.testplatform.service;
 
+import com.sleepypoem.testplatform.domain.entity.Image;
+import com.sleepypoem.testplatform.domain.entity.Student;
 import com.sleepypoem.testplatform.domain.entity.StudentTest;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
+import com.sleepypoem.testplatform.service.validation.StudentTestValidator;
+import com.sleepypoem.testplatform.service.validation.StudentValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.StudentTestFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,12 +25,13 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
 
 @ExtendWith(MockitoExtension.class)
 class StudentTestServiceTest {
@@ -193,6 +199,66 @@ class StudentTestServiceTest {
         //assert
         verify(specificationExecutor).findAll(any(Specification.class), eq(pageable));
 
+    }
+
+    @Test
+    @DisplayName("Test exists method when ok")
+    void testExistsMethodWhenOk() {
+        //arrange
+        StudentTest entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(true);
+        //act
+        boolean actual = service.existsById(id);
+        //assert
+        assertTrue(actual);
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exists method when entity not found")
+    void testExistsMethodWhenEntityNotFound() {
+        //arrange
+        StudentTest entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(false);
+        //act
+        //assert
+        assertFalse(service.existsById(id));
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in create method")
+    void testValidationFailsInCreateMethod() {
+        StudentTest studentTest = factory.create();
+        StudentTestValidator validatorMock = mock(StudentTestValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(StudentTest.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.create(studentTest));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(studentTest);
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in update method")
+    void testValidationFailsInUpdateMethod() {
+        StudentTest studentTest = factory.create();
+        Long id = studentTest.getId();
+        StudentTestValidator validatorMock = mock(StudentTestValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(StudentTest.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.update(id, studentTest));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(studentTest);
     }
 
     void assertFields(StudentTest actual, StudentTest expected) {

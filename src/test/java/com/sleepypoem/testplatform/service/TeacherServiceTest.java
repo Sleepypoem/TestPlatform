@@ -1,8 +1,13 @@
 package com.sleepypoem.testplatform.service;
 
+import com.sleepypoem.testplatform.domain.entity.Image;
+import com.sleepypoem.testplatform.domain.entity.Student;
 import com.sleepypoem.testplatform.domain.entity.Teacher;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
+import com.sleepypoem.testplatform.service.validation.StudentValidator;
+import com.sleepypoem.testplatform.service.validation.TeacherValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.TeacherFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,12 +25,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TeacherServiceTest {
@@ -193,6 +198,93 @@ class TeacherServiceTest {
         //assert
         verify(specificationExecutor).findAll(any(Specification.class), eq(pageable));
 
+    }
+
+    @Test
+    @DisplayName("Test exists method when ok")
+    void testExistsMethodWhenOk() {
+        //arrange
+        Teacher entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(true);
+        //act
+        boolean actual = service.existsById(id);
+        //assert
+        assertTrue(actual);
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exists method when entity not found")
+    void testExistsMethodWhenEntityNotFound() {
+        //arrange
+        Teacher entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(false);
+        //act
+        //assert
+        assertFalse(service.existsById(id));
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exists by teacher code when ok")
+    void testExistsByTeacherCodeWhenOk() {
+        //arrange
+        Teacher entity = factory.create();
+        Long teacherCode = entity.getTeacherCode();
+        when(specificationExecutor.exists(any(Specification.class))).thenReturn(true);
+        //act
+        boolean actual = service.existsByTeacherCode(teacherCode);
+        //assert
+        assertTrue(actual);
+        verify(specificationExecutor).exists(any(Specification.class));
+    }
+
+    @Test
+    @DisplayName("Test exists by teacher code when entity not found")
+    void testExistsByTeacherCodeWhenEntityNotFound() {
+        //arrange
+        Teacher entity = factory.create();
+        Long teacherCode = entity.getTeacherCode();
+        when(specificationExecutor.exists(any(Specification.class))).thenReturn(false);
+        //act
+        //assert
+        assertFalse(service.existsByTeacherCode(teacherCode));
+        verify(specificationExecutor).exists(any(Specification.class));
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in create method")
+    void testValidationFailsInCreateMethod() {
+        Teacher teacher = factory.create();
+        TeacherValidator validatorMock = mock(TeacherValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(Teacher.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.create(teacher));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(teacher);
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in update method")
+    void testValidationFailsInUpdateMethod() {
+        Teacher teacher = factory.create();
+        Long id = teacher.getId();
+        TeacherValidator validatorMock = mock(TeacherValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(Teacher.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.update(id, teacher));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(teacher);
     }
 
     void assertFields(Teacher actual, Teacher expected) {

@@ -1,7 +1,8 @@
 package com.sleepypoem.testplatform.service;
 
-import com.sleepypoem.testplatform.domain.dto.Question;
+import com.sleepypoem.testplatform.domain.entity.Image;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
 import com.sleepypoem.testplatform.service.validation.TestValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
@@ -21,12 +22,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class TestServiceTest {
@@ -183,6 +184,33 @@ class TestServiceTest {
     }
 
     @Test
+    @DisplayName("Test exists method when ok")
+    void testExistsMethodWhenOk() {
+        //arrange
+        com.sleepypoem.testplatform.domain.entity.Test entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(true);
+        //act
+        boolean actual = service.existsById(id);
+        //assert
+        assertTrue(actual);
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exists method when entity not found")
+    void testExistsMethodWhenEntityNotFound() {
+        //arrange
+        com.sleepypoem.testplatform.domain.entity.Test entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(false);
+        //act
+        //assert
+        assertFalse(service.existsById(id));
+        verify(repository).existsById(id);
+    }
+
+    @Test
     @DisplayName("Test query when ok")
     void testQueryWhenOk() {
         //arrange
@@ -195,6 +223,39 @@ class TestServiceTest {
         //assert
         verify(specificationExecutor).findAll(any(Specification.class), eq(pageable));
 
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in create method")
+    void testValidationFailsInCreateMethod() {
+        com.sleepypoem.testplatform.domain.entity.Test test = factory.create();
+        TestValidator validatorMock = mock(TestValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(com.sleepypoem.testplatform.domain.entity.Test.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.create(test));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(test);
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in update method")
+    void testValidationFailsInUpdateMethod() {
+        com.sleepypoem.testplatform.domain.entity.Test test = factory.create();
+        Long id = test.getId();
+        TestValidator validatorMock = mock(TestValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(com.sleepypoem.testplatform.domain.entity.Test.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.update(id, test));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(test);
     }
 
     void assertFields(com.sleepypoem.testplatform.domain.entity.Test actual, com.sleepypoem.testplatform.domain.entity.Test expected) {

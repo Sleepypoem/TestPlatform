@@ -1,8 +1,11 @@
 package com.sleepypoem.testplatform.service;
 
+import com.sleepypoem.testplatform.domain.entity.Image;
 import com.sleepypoem.testplatform.domain.entity.Role;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
+import com.sleepypoem.testplatform.service.validation.RoleValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.RoleFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -20,12 +23,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class RoleServiceTest {
@@ -180,6 +183,33 @@ class RoleServiceTest {
     }
 
     @Test
+    @DisplayName("Test exists method when ok")
+    void testExistsMethodWhenOk() {
+        //arrange
+        Role entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(true);
+        //act
+        boolean actual = service.existsById(id);
+        //assert
+        assertTrue(actual);
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exists method when entity not found")
+    void testExistsMethodWhenEntityNotFound() {
+        //arrange
+        Role entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(false);
+        //act
+        //assert
+        assertFalse(service.existsById(id));
+        verify(repository).existsById(id);
+    }
+
+    @Test
     @DisplayName("Test query when ok")
     void testQueryWhenOk() {
         //arrange
@@ -194,7 +224,39 @@ class RoleServiceTest {
 
     }
 
-    void assertFields(Role actual, Role expected) {
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in create method")
+    void testValidationFailsInCreateMethod() {
+        Role role = factory.create();
+        RoleValidator validatorMock = mock(RoleValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(Role.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.create(role));
+        String expectedMessage = "The following errors were found during validation : {\n" +
+                "Field: test || Error: test\n" +
+                "}";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(any(Role.class));
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in update method")
+    void testValidationFailsInUpdateMethod() {
+        Role role = factory.create();
+        Long id = role.getId();
+        RoleValidator validatorMock = mock(RoleValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(Role.class))).thenReturn(Map.of("test", "test"));
+        var ex = assertThrows(MyValidationException.class, () -> service.update(id, role));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(any(Role.class));
+    }
+
+        void assertFields(Role actual, Role expected) {
         assertAll(
                 () -> assertNotNull(expected),
                 () -> assertEquals(actual.getId(), expected.getId()),

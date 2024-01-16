@@ -2,7 +2,9 @@ package com.sleepypoem.testplatform.service;
 
 import com.sleepypoem.testplatform.domain.entity.Image;
 import com.sleepypoem.testplatform.exception.MyEntityNotFoundException;
+import com.sleepypoem.testplatform.exception.MyValidationException;
 import com.sleepypoem.testplatform.service.validation.DefaultValidator;
+import com.sleepypoem.testplatform.service.validation.ImageValidator;
 import com.sleepypoem.testplatform.testutils.factories.abstracts.SimpleFactory;
 import com.sleepypoem.testplatform.testutils.factories.impl.ImageFactory;
 import org.junit.jupiter.api.BeforeEach;
@@ -18,10 +20,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ImageServiceTest {
@@ -170,6 +172,65 @@ class ImageServiceTest {
         //assert
         assertEquals(count, actual);
         verify(repository).count();
+    }
+
+    @Test
+    @DisplayName("Test exists method when ok")
+    void testExistsMethodWhenOk() {
+        //arrange
+        Image entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(true);
+        //act
+        boolean actual = service.existsById(id);
+        //assert
+        assertTrue(actual);
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exists method when entity not found")
+    void testExistsMethodWhenEntityNotFound() {
+        //arrange
+        Image entity = factory.create();
+        Long id = entity.getId();
+        when(repository.existsById(id)).thenReturn(false);
+        //act
+        //assert
+        assertFalse(service.existsById(id));
+        verify(repository).existsById(id);
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in create Method")
+    void testValidationFailsInCreateMethod() {
+        Image image = factory.create();
+        ImageValidator validatorMock = mock(ImageValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(Image.class))).thenReturn(Map.of("test", "test"));
+        var ex= assertThrows(MyValidationException.class, () -> service.create(image));
+        String expectedMessage = "The following errors were found during validation : {\n" +
+                "Field: test || Error: test\n" +
+                "}";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(any(Image.class));
+    }
+
+    @Test
+    @DisplayName("Test exception is thrown when validation fails in update method")
+    void testValidationFailsInUpdateMethod() {
+        Image image = factory.create();
+        Long id = image.getId();
+        ImageValidator validatorMock = mock(ImageValidator.class);
+        service.setValidator(validatorMock);
+        when(validatorMock.isValid(any(Image.class))).thenReturn(Map.of("test", "test"));
+        var ex= assertThrows(MyValidationException.class, () -> service.update(id, image));
+        String expectedMessage = """
+                The following errors were found during validation : {
+                Field: test || Error: test
+                }""";
+        assertEquals(expectedMessage, ex.getMessage());
+        verify(validatorMock).isValid(any(Image.class));
     }
 
     void assertFields(Image actual, Image expected) {
