@@ -16,4 +16,11 @@ public class StudentService extends AbstractQueryableService<Long, Student> {
     public Boolean existsByStudentCode(Long studentCode) {
         return specificationExecutor.exists((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("studentCode"), studentCode));
     }
+
+    @Override
+    public Student update(Long id, Student entity) {
+        Student previous = getOneById(id);
+        entity.setStudentCode(previous.getStudentCode());
+        return super.update(id, entity);
+    }
 }

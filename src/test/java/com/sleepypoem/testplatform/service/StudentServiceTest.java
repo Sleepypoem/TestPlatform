@@ -23,6 +23,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -76,6 +77,7 @@ class StudentServiceTest {
         //arrange
         Student expected = factory.create();
         Long id = expected.getId();
+        when(repository.findById(anyLong())).thenReturn(Optional.of(expected));
         when(repository.saveAndFlush(expected)).thenReturn(expected);
         //act
         Student actual = service.update(id, expected);
@@ -88,6 +90,8 @@ class StudentServiceTest {
     @Test
     @DisplayName("Test update a student when student is null")
     void testUpdateStudentWhenStudentIsNull() {
+        Student entity = factory.create();
+        when(repository.findById(anyLong())).thenReturn(Optional.of(entity));
         assertThrows(NullPointerException.class, () -> service.update(1L, null));
     }
 
@@ -96,6 +100,7 @@ class StudentServiceTest {
     void testUpdateStudentWhenIdAndStudentIdAreNotTheSame() {
         Student entity = factory.create();
         entity.setId(3L);
+        when(repository.findById(anyLong())).thenReturn(Optional.of(entity));
         assertThrows(IllegalArgumentException.class, () -> service.update(2L, entity));
 
     }
@@ -274,6 +279,7 @@ class StudentServiceTest {
         Long id = student.getId();
         StudentValidator validatorMock = mock(StudentValidator.class);
         service.setValidator(validatorMock);
+        when(repository.findById(anyLong())).thenReturn(Optional.of(student));
         when(validatorMock.isValid(any(Student.class))).thenReturn(Map.of("test", "test"));
         var ex = assertThrows(MyValidationException.class, () -> service.update(id, student));
         String expectedMessage = """
