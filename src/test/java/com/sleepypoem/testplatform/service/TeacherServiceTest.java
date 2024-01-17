@@ -76,6 +76,7 @@ class TeacherServiceTest {
         //arrange
         Teacher expected = factory.create();
         Long id = expected.getId();
+        when(repository.findById(anyLong())).thenReturn(java.util.Optional.of(expected));
         when(repository.saveAndFlush(expected)).thenReturn(expected);
         //act
         Teacher actual = service.update(id, expected);
@@ -88,6 +89,7 @@ class TeacherServiceTest {
     @Test
     @DisplayName("Test update a teacher when teacher is null")
     void testUpdateTeacherWhenTeacherIsNull() {
+        when(repository.findById(anyLong())).thenReturn(java.util.Optional.of(factory.create()));
         assertThrows(NullPointerException.class, () -> service.update(1L, null));
     }
 
@@ -95,6 +97,7 @@ class TeacherServiceTest {
     @DisplayName("Test update a teacher when id and teacherId are not the same")
     void testUpdateTeacherWhenIdAndTeacherIdAreNotTheSame() {
         Teacher entity = factory.create();
+        when(repository.findById(anyLong())).thenReturn(java.util.Optional.of(entity));
         entity.setId(3L);
         assertThrows(IllegalArgumentException.class, () -> service.update(2L, entity));
 
@@ -274,6 +277,7 @@ class TeacherServiceTest {
         Long id = teacher.getId();
         TeacherValidator validatorMock = mock(TeacherValidator.class);
         service.setValidator(validatorMock);
+        when(repository.findById(anyLong())).thenReturn(java.util.Optional.of(teacher));
         when(validatorMock.isValid(any(Teacher.class))).thenReturn(Map.of("test", "test"));
         var ex = assertThrows(MyValidationException.class, () -> service.update(id, teacher));
         String expectedMessage = """

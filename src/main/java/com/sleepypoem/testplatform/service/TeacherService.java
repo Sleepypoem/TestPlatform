@@ -16,4 +16,11 @@ public class TeacherService extends AbstractQueryableService<Long, Teacher> {
     public Boolean existsByTeacherCode(Long teacherCode) {
         return specificationExecutor.exists((root, query, criteriaBuilder) -> criteriaBuilder.equal(root.get("teacherCode"), teacherCode));
     }
+
+    @Override
+    public Teacher update(Long id, Teacher entity) {
+        Teacher previous = getOneById(id);
+        entity.setTeacherCode(previous.getTeacherCode());
+        return super.update(id, entity);
+    }
 }
